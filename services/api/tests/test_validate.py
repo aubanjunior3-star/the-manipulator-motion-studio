@@ -140,3 +140,10 @@ def test_properties_overlap():
     assert properties_overlap("opacity", "opacity")
     assert not properties_overlap("transform.position.x", "transform.position.y")
     assert not properties_overlap("transform.position", "transform.positions")
+
+
+def test_split_unsupported_for_whole_object_behaviors(scene):
+    scene["animations"].append(
+        {"id": "o", "kind": "behavior", "target": "title", "behavior": "orbit", "start": 0, "duration": 1, "split": "char"}
+    )
+    assert codes(validate_document(scene)) == {"behavior.split_unsupported"}

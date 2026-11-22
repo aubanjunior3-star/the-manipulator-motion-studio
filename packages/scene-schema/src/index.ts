@@ -32,6 +32,8 @@ export type BehaviorParamSpec =
 
 export interface BehaviorSpec {
   description: string;
+  /** false : le behavior s'applique à l'objet entier, `split` est interdit. */
+  splittable?: boolean;
   targets: string[];
   params: Record<string, BehaviorParamSpec>;
 }

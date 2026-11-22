@@ -66,7 +66,7 @@ def properties_overlap(a: str, b: str) -> bool:
 # Behaviors
 # ---------------------------------------------------------------------------
 # Chaque paramètre : {"type": number|enum|vec3|bool|node_ref, "default": …, contraintes}
-# "targets" : types de nœud acceptés.
+# "targets" : types de nœud acceptés ; "splittable": False interdit split (lettre/mot/ligne).
 
 _ALL_VISUAL = ["group", "text", "shape", "model"]
 _MOVABLE = ["group", "text", "shape", "model", "camera", "light"]
@@ -127,6 +127,7 @@ BEHAVIORS: dict[str, dict[str, Any]] = {
         },
     },
     "orbit": {
+        "splittable": False,
         "description": "Orbite autour d'un point (souvent la caméra autour du sujet).",
         "targets": _MOVABLE,
         "params": {
@@ -137,6 +138,7 @@ BEHAVIORS: dict[str, dict[str, Any]] = {
         },
     },
     "dolly": {
+        "splittable": False,
         "description": "Déplacement de caméra le long de son axe de visée.",
         "targets": ["camera"],
         "params": {
@@ -145,6 +147,7 @@ BEHAVIORS: dict[str, dict[str, Any]] = {
         },
     },
     "look_at": {
+        "splittable": False,
         "description": "Oriente la cible vers un autre nœud pendant toute la durée.",
         "targets": ["camera", "light", "group", "shape", "model"],
         "params": {

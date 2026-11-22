@@ -325,6 +325,7 @@
       }
     },
     "orbit": {
+      "splittable": false,
       "description": "Orbite autour d'un point (souvent la caméra autour du sujet).",
       "targets": [
         "group",
@@ -377,6 +378,7 @@
       }
     },
     "dolly": {
+      "splittable": false,
       "description": "Déplacement de caméra le long de son axe de visée.",
       "targets": [
         "camera"
@@ -407,6 +409,7 @@
       }
     },
     "look_at": {
+      "splittable": false,
       "description": "Oriente la cible vers un autre nœud pendant toute la durée.",
       "targets": [
         "camera",

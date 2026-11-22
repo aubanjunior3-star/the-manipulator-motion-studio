@@ -1,0 +1,21 @@
+{
+  "name": "@manipulator/motion-engine",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Moteur d'animation MSD : evaluate(scène, t) pur et déterministe.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@manipulator/scene-schema": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "typescript": "7.0.2",
+    "vitest": "4.1.12"
+  }
+}

@@ -377,6 +377,14 @@ def _check_behavior(b: Behavior, i: int, target_type: str, nodes: dict[str, Any]
     target = nodes.get(b.target)
     if b.split != "none" and not isinstance(target, TextNode):
         out.append(Issue("behavior.split_not_text", _pointer(*base, "split"), "Le découpage (split) ne s'applique qu'aux textes."))
+    elif b.split != "none" and spec.get("splittable", True) is False:
+        out.append(
+            Issue(
+                "behavior.split_unsupported",
+                _pointer(*base, "split"),
+                f"'{b.behavior}' s'applique à l'objet entier, pas lettre par lettre (split doit valoir 'none').",
+            )
+        )
     if b.split == "none" and b.stagger > 0:
         out.append(
             Issue("behavior.stagger_ignored", _pointer(*base, "stagger"), "'stagger' est ignoré quand split vaut 'none'.", "warning")
