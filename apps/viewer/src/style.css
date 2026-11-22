@@ -13,6 +13,8 @@
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
+/* L'attribut hidden doit toujours l'emporter sur les display des composants (.btn, etc.). */
+[hidden] { display: none !important; }
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 13px/1.4 var(--font-ui); }
 #app { display: grid; grid-template-rows: 44px 1fr auto; grid-template-columns: 1fr auto; height: 100vh; }
 .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
@@ -27,7 +29,7 @@ html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
 select, .btn { background: transparent; color: var(--text); border: 1px solid var(--line); height: 28px; padding: 0 10px; font: inherit; border-radius: 2px; cursor: pointer; }
 select:hover, .btn:hover { border-color: #3a3d44; }
 select:focus-visible, .btn:focus-visible, input:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
-.btn { display: inline-flex; align-items: center; }
+.btn { display: inline-flex; align-items: center; white-space: nowrap; }
 .btn.icon { width: 32px; justify-content: center; padding: 0; }
 #play.playing { color: var(--accent); border-color: var(--accent); }
 .check { display: flex; align-items: center; gap: 6px; color: var(--muted); cursor: pointer; user-select: none; }
@@ -44,6 +46,22 @@ select:focus-visible, .btn:focus-visible, input:focus-visible { outline: 1px sol
 .issues li code { color: var(--muted); font-family: var(--font-mono); font-size: 11px; display: block; }
 #scrub { flex: 1; accent-color: var(--accent); }
 .time { min-width: 210px; text-align: right; }
+.btn.primary { border-color: var(--accent); color: var(--accent); }
+.btn.primary:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.btn[disabled] { opacity: 0.4; cursor: default; }
+a.btn { text-decoration: none; }
+.dim { color: var(--muted); }
+.dialog { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 2px; padding: 18px 20px; width: min(520px, 94vw); }
+.dialog::backdrop { background: rgb(0 0 0 / 0.55); }
+.dialog form { display: grid; gap: 12px; }
+.dialog .field { justify-content: space-between; }
+.dialog .field select { min-width: 220px; }
+.dialog-title { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+#export-download { justify-content: center; border-color: var(--accent); color: var(--text); }
+.progress { height: 4px; background: var(--line); }
+.progress-bar { height: 100%; width: 0; background: var(--accent); transition: width 0.1s linear; }
+#export-status.error { color: #ff6b6b; }
 /* Mode test (?test) : seule l'image compte */
 body.test .bar, body.test .transport, body.test .issues, body.test .overlay { display: none; }
 body.test #app { display: block; }

@@ -1,6 +1,8 @@
 import "./style.css";
 import { SceneRenderer } from "@manipulator/render-three";
 import { type SceneDocument, validateStructure } from "@manipulator/scene-schema";
+import { exportVideo, type VideoFormat } from "@manipulator/export";
+import { setupExportPanel } from "./export-panel";
 import { resolveAsset } from "./resolver";
 import { AdaptiveResolution, advance, formatTime, frameAt, frameCount, timeOfFrame } from "./timing";
 
@@ -192,6 +194,16 @@ declare global {
       scenes: string[];
       load(name: string): Promise<string[]>;
       renderAt(time: number): void;
+      /** Exporte une scène de référence ; renvoie le fichier en base64 et ses caractéristiques. */
+      exportVideo(name: string, format: VideoFormat, width?: number, durationOverride?: number): Promise<{
+        base64: string;
+        frames: number;
+        fps: number;
+        width: number;
+        height: number;
+        elapsed: number;
+        warnings: string[];
+      }>;
     };
   }
 }
@@ -207,7 +219,23 @@ window.__viewer = {
     t = time;
     draw();
   },
+  exportVideo: async (name, format, width, durationOverride) => {
+    const base = scenes.get(name);
+    if (!base) throw new Error(`Scène inconnue : ${name}`);
+    const d = durationOverride ? { ...base, settings: { ...base.settings, duration: durationOverride } } : base;
+    const r = await exportVideo({ doc: d, resolveAsset: (uri) => resolveAsset(uri), format, width });
+    const bytes = new Uint8Array(await r.blob.arrayBuffer());
+    let bin = "";
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    return { base64: btoa(bin), frames: r.frames, fps: r.fps, width: r.width, height: r.height, elapsed: r.elapsed, warnings: r.warnings };
+  },
 };
+
+setupExportPanel(
+  () => doc,
+  () => (uri) => resolveAsset(uri, projectBase),
+  () => setPlaying(false),
+);
 
 const initial = params.get("scene") ?? scenes.keys().next().value!;
 if (!testMode) {

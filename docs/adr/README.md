@@ -11,3 +11,4 @@ Une ADR acceptée n'est pas modifiée ; on la remplace par une nouvelle qui la c
 | [0004](0004-stack-technique.md) | Stack technique et alternatives écartées | Acceptée |
 | [0005](0005-ia-sans-code-executable.md) | L'IA produit des opérations validées, jamais du code exécutable | Acceptée |
 | [0006](0006-rendu-three.md) | Choix de rendu (couleurs exactes, shading, environnement, tests visuels) | Acceptée |
+| [0007](0007-export-webcodecs.md) | Export vidéo dans le navigateur (WebCodecs + Mediabunny) | Acceptée |

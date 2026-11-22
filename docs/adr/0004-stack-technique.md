@@ -35,3 +35,6 @@ Three.js 0.187.0, opentype.js 2.0.0 (MIT ; pas de types fournis → déclaration
 sa mise en forme avancée plante sur certaines polices, d'où la conversion caractère par caractère),
 Vite 8.3.5, Playwright 1.63.0, pixelmatch 7.1.0, pngjs 7.0.0. Polices : Space Grotesk et Inter
 (OFL-1.1) via Fontsource 5.3.0, sous-ensemble latin.
+
+## Ajouts phase 2
+Mediabunny 1.65.2 (MPL-2.0) pour le multiplexage MP4/WebM ; encodage par WebCodecs (ADR 0007).

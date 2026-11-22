@@ -1,0 +1,23 @@
+{
+  "name": "@manipulator/export",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Export vidéo d'une scène MSD dans le navigateur (WebCodecs + Mediabunny) : MP4 H.264, WebM VP9.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@manipulator/render-three": "workspace:*",
+    "@manipulator/scene-schema": "workspace:*",
+    "mediabunny": "1.65.2"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "typescript": "7.0.2",
+    "vitest": "4.1.12"
+  }
+}

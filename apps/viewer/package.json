@@ -11,6 +11,7 @@
     "test:visual": "vitest run test/visual"
   },
   "dependencies": {
+    "@manipulator/export": "workspace:*",
     "@manipulator/motion-engine": "workspace:*",
     "@manipulator/render-three": "workspace:*",
     "@manipulator/scene-schema": "workspace:*"

@@ -27,9 +27,16 @@ fonctionnalité est vérifiée de bout en bout. Aucune interface sans moteur der
   l'IA ; sans IA il n'a pas d'utilisateur, et les débordements constatés sur deux scènes de référence
   (corrigés à la main) montrent qu'il sera indispensable.
 
-## Phase 2 — Export
-- [ ] Rendu image par image hors écran → FFmpeg → MP4 H.264
-- [ ] Tests : `ffprobe` (durée, images, codec), mémoire stable sur 60 s
+## Phase 2 — Export vidéo ✅ (2026-11-22)
+- [x] Export dans le navigateur, sans installation : MP4 (H.264 High) et WebM (VP9) — ADR 0007
+- [x] Rendu image par image exact (image i à i / fps), canvas dédié à la résolution de sortie
+- [x] Bouton « Exporter… » dans la visionneuse : format, résolution (taille projet / aperçus rapides),
+      estimation, progression, temps restant, annulation, téléchargement
+- [x] Outil en ligne de commande : `node apps/viewer/scripts/export.mjs`
+- [x] Tests : ffprobe (codec, profil, dimensions, cadence, nombre d'images, durée), fidélité image par
+      image (PSNR 42–46 dB) et absence de décalage, 9:16 à 60 i/s, mémoire stable sur 60 s,
+      parcours utilisateur (export, téléchargement, annulation)
+- **Reporté en V1** : ProRes avec alpha, GIF, séquences PNG, audio (nécessitent FFmpeg)
 
 ## Phase 3 — IA Director v1
 - [ ] `layout-solver` : contraintes de mise en page, cadrage caméra automatique, contrôle « hors cadre »

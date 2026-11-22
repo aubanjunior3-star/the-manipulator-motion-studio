@@ -9,7 +9,7 @@ professionnel, modifiable par la conversation ou à la main dans une timeline.
 - Décisions d'architecture : [`docs/adr/`](docs/adr/README.md)
 - Format de scène (MSD) : [`docs/schema/MSD.md`](docs/schema/MSD.md)
 
-## État actuel — phase 1 terminée
+## État actuel — phases 1 et 2 terminées
 
 Opérationnel et testé :
 - **Format de scène MSD 0.1** et sa validation (structure + cohérence), erreurs avec chemin précis.
@@ -17,9 +17,10 @@ Opérationnel et testé :
   lettre / mot / ligne.
 - **Rendu Three.js** : texte 3D extrudé, formes, matériaux, lumières, ombres, caméras, modèles glTF.
 - **Visionneuse** pour jouer les scènes.
+- **Export vidéo MP4 / WebM** directement depuis la visionneuse (bouton « Exporter… »), sans rien installer.
 - **Tests** : Python, TypeScript et tests visuels sur images de référence (CI Linux + Windows).
 
-Pas encore disponible : export vidéo (phase 2), IA (phase 3), éditeur complet (phase 4).
+Pas encore disponible : IA (phase 3), éditeur complet (phase 4), formats ProRes/GIF et audio (V1).
 
 ## Démarrage (Windows, macOS, Linux)
 
@@ -62,6 +63,7 @@ apps/viewer/             visionneuse (Vite) + tests visuels
 packages/scene-schema/   types TS générés, registre, validation structurelle (Ajv)
 packages/motion-engine/  evaluate(scène, t) : moteur d'animation pur
 packages/render-three/   rendu Three.js (texte, formes, lumières, glTF)
+packages/export/         export vidéo navigateur (WebCodecs + Mediabunny)
 assets/builtin/          ressources livrées (polices OFL)
 services/api/            backend Python : schéma MSD (source de vérité), validation
 tests/fixtures/scenes/   scènes de référence partagées Python ⇄ TypeScript

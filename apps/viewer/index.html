@@ -17,6 +17,7 @@
           Ouvrir un fichier…
           <input id="file-input" type="file" accept=".json,application/json" hidden />
         </label>
+        <button class="btn primary" id="export-open" title="Exporter la scène en vidéo">Exporter…</button>
         <div class="spacer"></div>
         <label class="check" title="Baisse la résolution pendant la lecture si l'affichage passe sous 24 images/s">
           <input id="adaptive" type="checkbox" checked /> Résolution adaptative
@@ -33,6 +34,31 @@
         <div class="issues-title">Avertissements</div>
         <ul id="issues-list"></ul>
       </aside>
+
+      <dialog id="export-dialog" class="dialog">
+        <form method="dialog" id="export-form">
+          <div class="dialog-title">Exporter en vidéo</div>
+          <label class="field">
+            <span>Format</span>
+            <select id="export-format">
+              <option value="mp4">MP4 · H.264 (universel)</option>
+              <option value="webm">WebM · VP9 (web)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Résolution</span>
+            <select id="export-size"></select>
+          </label>
+          <div class="mono dim" id="export-info"></div>
+          <div class="progress" id="export-progress" hidden><div class="progress-bar" id="export-bar"></div></div>
+          <div class="mono" id="export-status"></div>
+          <a class="btn" id="export-download" hidden>Télécharger</a>
+          <div class="dialog-actions">
+            <button type="button" class="btn" id="export-cancel">Fermer</button>
+            <button type="button" class="btn primary" id="export-start">Lancer l'export</button>
+          </div>
+        </form>
+      </dialog>
 
       <footer class="transport">
         <button class="btn icon" id="play" title="Lecture / pause (Espace)" aria-label="Lecture">▶</button>
