@@ -82,6 +82,9 @@ export interface NodeState {
   props: Record<string, number | Vec3>;
   /** Textes uniquement : un état par glyphe (caractères non blancs, dans l'ordre). */
   glyphs?: GlyphState[];
+  /** Nœud visé par un look_at actif à cet instant, sinon null. Les lumières directionnelles
+   *  et spots visent ce nœud ; sans look_at, elles visent l'origine du monde (ADR 0003). */
+  lookAtTarget: string | null;
 }
 
 export interface MaterialState {
@@ -585,6 +588,7 @@ function evaluateFrame(prep: Prepared, t: number): FrameState {
         worldVisible: parent ? parent.worldVisible && visible : visible,
         worldMatrix,
         props: w.props,
+        lookAtTarget: w.lookAt?.target ?? null,
       };
       if (w.glyphs) state.glyphs = w.glyphs.map((g) => ({ ...g, opacity: clamp01(g.opacity) }));
       byId[n.id] = state;

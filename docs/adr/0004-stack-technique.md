@@ -29,3 +29,9 @@ json-schema-to-typescript 16.0.0, pytest 8.4.2. Versions exactes, lockfiles vers
 Avant toute nouvelle dépendance : licence compatible avec un usage commercial, maintenance
 active, poids, compatibilité Windows, et absence d'alternative déjà présente. Décision notée
 dans l'ADR concernée.
+
+## Ajouts phase 1
+Three.js 0.187.0, opentype.js 2.0.0 (MIT ; pas de types fournis → déclaration minimale locale ;
+sa mise en forme avancée plante sur certaines polices, d'où la conversion caractère par caractère),
+Vite 8.3.5, Playwright 1.63.0, pixelmatch 7.1.0, pngjs 7.0.0. Polices : Space Grotesk et Inter
+(OFL-1.1) via Fontsource 5.3.0, sous-ensemble latin.

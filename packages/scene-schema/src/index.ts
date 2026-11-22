@@ -9,15 +9,16 @@
  * autorité côté Python (services/api/manipulator_api/schema/validate.py) ; voir
  * docs/adr/0002 pour la raison et le plan de portage.
  */
-import { createRequire } from "node:module";
 import { Ajv2020, type ErrorObject } from "ajv/dist/2020.js";
+// Imports JSON standard : fonctionnent dans Node, Vite et les navigateurs.
+import schemaJson from "../generated/msd.schema.json" with { type: "json" };
+import registryJson from "../generated/registry.json" with { type: "json" };
 
 export type * from "./generated/msd.js";
 import type { SceneDocument } from "./generated/msd.js";
 
-const require = createRequire(import.meta.url);
-export const msdSchema: Record<string, unknown> = require("../generated/msd.schema.json");
-export const registry: MsdRegistry = require("../generated/registry.json");
+export const msdSchema: Record<string, unknown> = schemaJson;
+export const registry: MsdRegistry = registryJson as unknown as MsdRegistry;
 
 export const MSD_VERSION = "0.1.0" as const;
 

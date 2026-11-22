@@ -37,7 +37,8 @@
       "roughness": 0.5,
       "emissive": "#000000",
       "emissive_intensity": 0.0,
-      "opacity": 1.0
+      "opacity": 1.0,
+      "shading": "flat"
     },
     {
       "id": "m_accent",
@@ -46,7 +47,8 @@
       "roughness": 0.5,
       "emissive": "#000000",
       "emissive_intensity": 0.0,
-      "opacity": 1.0
+      "opacity": 1.0,
+      "shading": "flat"
     }
   ],
   "nodes": [

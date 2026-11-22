@@ -103,6 +103,10 @@ class Asset(Strict):
 
 class Material(Strict):
     id: Id
+    shading: Literal["lit", "flat"] = Field(
+        default="lit",
+        description="'lit' : éclairé (PBR). 'flat' : couleur exacte sans éclairage (aplats 2D, typographie, charte).",
+    )
     base_color: Color = "#ffffff"
     metalness: Unit = 0.0
     roughness: Unit = 0.5

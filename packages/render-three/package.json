@@ -1,0 +1,25 @@
+{
+  "name": "@manipulator/render-three",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Rendu Three.js d'une scène MSD (aperçu temps réel et rendu image par image).",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@manipulator/motion-engine": "workspace:*",
+    "@manipulator/scene-schema": "workspace:*",
+    "opentype.js": "2.0.0",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "@types/three": "0.187.0",
+    "typescript": "7.0.2",
+    "vitest": "4.1.12"
+  }
+}

@@ -605,6 +605,15 @@
           "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
           "type": "string"
         },
+        "shading": {
+          "default": "lit",
+          "description": "'lit' : éclairé (PBR). 'flat' : couleur exacte sans éclairage (aplats 2D, typographie, charte).",
+          "enum": [
+            "lit",
+            "flat"
+          ],
+          "type": "string"
+        },
         "base_color": {
           "default": "#ffffff",
           "description": "Couleur sRGB hexadécimale #RRGGBB.",

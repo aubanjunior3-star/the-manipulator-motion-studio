@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manipulator — Visionneuse</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="bar">
+        <div class="brand"><span class="mark" aria-hidden="true"></span>MANIPULATOR<span class="sub">Visionneuse</span></div>
+        <label class="field">
+          <span>Scène</span>
+          <select id="scene-select"></select>
+        </label>
+        <label class="btn file-btn">
+          Ouvrir un fichier…
+          <input id="file-input" type="file" accept=".json,application/json" hidden />
+        </label>
+        <div class="spacer"></div>
+        <label class="check" title="Baisse la résolution pendant la lecture si l'affichage passe sous 24 images/s">
+          <input id="adaptive" type="checkbox" checked /> Résolution adaptative
+        </label>
+        <div class="stats mono" id="stats">— fps</div>
+      </header>
+
+      <main class="stage" id="stage">
+        <canvas id="canvas"></canvas>
+        <div class="overlay mono" id="overlay"></div>
+      </main>
+
+      <aside class="issues" id="issues" hidden>
+        <div class="issues-title">Avertissements</div>
+        <ul id="issues-list"></ul>
+      </aside>
+
+      <footer class="transport">
+        <button class="btn icon" id="play" title="Lecture / pause (Espace)" aria-label="Lecture">▶</button>
+        <button class="btn icon" id="step-back" title="Image précédente (←)" aria-label="Image précédente">‹</button>
+        <button class="btn icon" id="step-fwd" title="Image suivante (→)" aria-label="Image suivante">›</button>
+        <input id="scrub" type="range" min="0" max="1000" value="0" step="1" aria-label="Position" />
+        <div class="time mono" id="time">00:00.00 / 00:00.00</div>
+        <label class="check"><input id="loop" type="checkbox" checked /> Boucle</label>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

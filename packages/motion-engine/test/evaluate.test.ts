@@ -178,6 +178,8 @@ describe("caméra : orbit, look_at, dolly", () => {
       animations: [beh("cam", "look_at", 0, 10, { node: "cube" })],
     });
     const s = evaluate(d, 1).byId.cam!;
+    expect(s.lookAtTarget).toBe("cube");
+    expect(evaluate(makeDoc(), 1).byId.cam!.lookAtTarget).toBeNull();
     const dir: Vec3 = [1 - 5, 0 - 5, -2 - 5];
     const n = Math.hypot(...dir);
     closeVec(rotateVec(s.quaternion, [0, 0, -1]), dir.map((v) => v / n));

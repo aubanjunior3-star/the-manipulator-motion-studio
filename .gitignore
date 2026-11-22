@@ -8,3 +8,4 @@ __pycache__/
 .env.*
 renders/
 *.log
+tests/golden/_diff/

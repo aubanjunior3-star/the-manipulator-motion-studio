@@ -16,3 +16,9 @@
 
 Formes 2D (`rect`, `ellipse`) : géométrie plate dans le plan XY local d'un nœud 3D. Une scène
 « 2D » est une scène dont la caméra est orthographique.
+
+## Ajout (phase 1) — orientation des lumières
+Les lumières `directional` et `spot` **visent l'origine du monde** ; si un behavior
+`look_at` est actif sur elles, elles visent le nœud ciblé. Leur rotation propre est ignorée
+pour la visée. Raison : c'est le cas d'usage dominant (éclairer le sujet au centre) et l'IA
+n'a pas à calculer d'angles. Les caméras, elles, suivent leur rotation (axe −Z) ou leur `look_at`.

@@ -3,8 +3,8 @@
 Référence du format de scène. Source de vérité : `services/api/manipulator_api/schema/`
 (ADR 0002). Schéma machine : `packages/scene-schema/generated/msd.schema.json`.
 
-> **État :** le format et sa validation sont opérationnels. Le **rendu** des scènes arrive en
-> phase 1 : aucun moteur ne les joue encore.
+> **État :** format, validation, moteur d'animation (`packages/motion-engine`) et rendu
+> Three.js (`packages/render-three`) opérationnels. Visionneuse : `pnpm viewer`.
 
 ## Structure
 
@@ -23,6 +23,11 @@ Référence du format de scène. Source de vérité : `services/api/manipulator_
 }
 ```
 
+## Matériaux
+`shading` : `lit` (éclairé, PBR : `metalness`, `roughness`, `emissive`…) ou `flat` (couleur
+exacte, sans éclairage : typographie, aplats, couleurs de charte). Couleurs `#RRGGBB` sRGB,
+interpolées en espace linéaire.
+
 ## Nœuds
 Champs communs : `id`, `name`, `parent` (un `group` ou `null`), `transform` (`position`,
 `rotation` en degrés XYZ, `scale`), `visible`, `opacity`.
@@ -35,6 +40,9 @@ Champs communs : `id`, `name`, `parent` (un `group` ou `null`), `transform` (`po
 | `model` | `asset` (asset model, glTF/GLB) |
 | `camera` | `projection` (`perspective` / `orthographic`), `fov`, `ortho_height`, `near`, `far` |
 | `light` | `light` (`ambient`, `directional`, `point`, `spot`), `color`, `intensity`, `cast_shadow`, `spot_angle` |
+
+Les lumières `directional` et `spot` visent l'origine du monde, ou la cible d'un `look_at`
+actif. Caméras : axe de visée −Z, ou `look_at`.
 
 ## Animations
 
@@ -58,8 +66,23 @@ Champs communs : `id`, `name`, `parent` (un `group` ou `null`), `transform` (`po
 ```
 - `split` (texte uniquement) : par lettre, mot ou ligne ; `stagger` : décalage entre éléments ;
   la fin effective `start + duration + stagger × (n − 1)` doit tenir dans la durée.
-- Behaviors spécifiés en 0.1 : `enter`, `exit`, `spin`, `float`, `pulse`, `wiggle`, `orbit`,
-  `dolly`, `look_at` — paramètres, bornes et cibles dans `generated/registry.json`.
+- Paramètres, bornes et cibles : `generated/registry.json`. Sémantique exacte (moteur) :
+
+| Behavior | Effet |
+|---|---|
+| `enter` | Avant `start` l'élément est **caché** dans son état de départ. `fade` : opacité 0→1. `rise` / `drop` : monte / descend de `distance` jusqu'à sa place. `slide_left` / `slide_right` : glisse vers la gauche / la droite. `scale_up` : échelle 0→1. `pop` : échelle 0,4→1 avec rebond. Les styles en mouvement ajoutent un fondu sur les 60 premiers % |
+| `exit` | Miroir d'`enter` ; après la fin, l'élément reste caché. `scale_down` : échelle 1→0 |
+| `spin` | `revolutions` tours autour de l'axe local `axis` |
+| `float` | Oscillation verticale (`amplitude`, `frequency`) + légère rotation |
+| `pulse` | Échelle × (1 + `amount` · oscillation) |
+| `wiggle` | Bruit déterministe (graine du projet + identifiant du behavior) sur la position |
+| `orbit` | Tourne la position **et** l'orientation de `degrees` autour de `center` |
+| `dolly` | Avance de `distance` le long de l'axe de visée |
+| `look_at` | Oriente vers le nœud `node` pendant la fenêtre du behavior |
+
+`float`, `pulse` et `wiggle` démarrent et s'arrêtent en douceur (pas de saut aux bornes).
+Les behaviors s'additionnent dans l'ordre du tableau ; `orbit`, `dolly` et `look_at`
+s'appliquent à l'objet entier (pas de `split`).
 
 ## Validation
 ```bash

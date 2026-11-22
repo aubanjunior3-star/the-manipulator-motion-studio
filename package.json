@@ -13,6 +13,8 @@
     "test:py": "uv --directory services/api run pytest -q",
     "test:ts": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
-    "test": "pnpm schema:check && pnpm test:py && pnpm typecheck && pnpm test:ts"
+    "test": "pnpm schema:check && pnpm test:py && pnpm typecheck && pnpm test:ts",
+    "test:visual": "pnpm --filter @manipulator/viewer test:visual",
+    "viewer": "pnpm --filter @manipulator/viewer dev"
   }
 }

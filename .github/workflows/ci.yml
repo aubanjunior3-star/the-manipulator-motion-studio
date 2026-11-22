@@ -34,3 +34,33 @@ jobs:
 
       - name: Schéma à jour, tests Python, typecheck, tests TypeScript
         run: pnpm test
+
+  visual:
+    # Rendu réel WebGL (Chromium + SwiftShader) comparé aux images de référence.
+    # Linux uniquement : le rendu logiciel varie d'un système à l'autre.
+    name: Tests visuels (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Dépendances et navigateur
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --filter @manipulator/viewer exec playwright install --with-deps chromium
+
+      - name: Tests visuels
+        run: pnpm test:visual
+
+      - name: Images de différence (en cas d'échec)
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: visual-diff
+          path: tests/golden/_diff/

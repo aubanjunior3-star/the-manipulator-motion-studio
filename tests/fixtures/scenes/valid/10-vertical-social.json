@@ -31,7 +31,8 @@
       "roughness": 0.5,
       "emissive": "#000000",
       "emissive_intensity": 0.0,
-      "opacity": 1.0
+      "opacity": 1.0,
+      "shading": "flat"
     },
     {
       "id": "m_blob",
@@ -150,7 +151,7 @@
       "type": "text",
       "content": "3 secondes\npour capter\nl'attention",
       "font": "font_display",
-      "size": 0.9,
+      "size": 0.6,
       "line_height": 1.1,
       "material": "m_text",
       "transform": {

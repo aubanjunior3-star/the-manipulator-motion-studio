@@ -85,6 +85,10 @@ export interface Material {
    */
   id: string;
   /**
+   * 'lit' : éclairé (PBR). 'flat' : couleur exacte sans éclairage (aplats 2D, typographie, charte).
+   */
+  shading?: "lit" | "flat";
+  /**
    * Couleur sRGB hexadécimale #RRGGBB.
    */
   base_color?: string;

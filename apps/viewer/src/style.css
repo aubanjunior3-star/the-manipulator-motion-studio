@@ -1,0 +1,51 @@
+/* Identité provisoire : graphite mat, filets de 1 px, une seule couleur d'accent.
+   L'accent définitif reste à choisir (docs/ETUDE_TECHNIQUE.md §8) : une seule variable à changer. */
+:root {
+  --accent: #ff7a1a;
+  --bg: #0b0c0e;
+  --panel: #121316;
+  --line: #24262b;
+  --text: #e6e6e3;
+  --muted: #8a8d94;
+  --warn: #ffb547;
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 13px/1.4 var(--font-ui); }
+#app { display: grid; grid-template-rows: 44px 1fr auto; grid-template-columns: 1fr auto; height: 100vh; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.bar, .transport { grid-column: 1 / -1; display: flex; align-items: center; gap: 12px; padding: 0 14px; background: var(--panel); }
+.bar { border-bottom: 1px solid var(--line); }
+.transport { border-top: 1px solid var(--line); height: 48px; }
+.brand { font-weight: 700; letter-spacing: 0.14em; font-size: 12px; display: flex; align-items: center; gap: 8px; }
+.brand .sub { font-weight: 400; letter-spacing: 0.02em; color: var(--muted); margin-left: 6px; }
+.mark { width: 10px; height: 10px; background: var(--accent); display: inline-block; }
+.spacer { flex: 1; }
+.field { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+select, .btn { background: transparent; color: var(--text); border: 1px solid var(--line); height: 28px; padding: 0 10px; font: inherit; border-radius: 2px; cursor: pointer; }
+select:hover, .btn:hover { border-color: #3a3d44; }
+select:focus-visible, .btn:focus-visible, input:focus-visible { outline: 1px solid var(--accent); outline-offset: 1px; }
+.btn { display: inline-flex; align-items: center; }
+.btn.icon { width: 32px; justify-content: center; padding: 0; }
+#play.playing { color: var(--accent); border-color: var(--accent); }
+.check { display: flex; align-items: center; gap: 6px; color: var(--muted); cursor: pointer; user-select: none; }
+.check input { accent-color: var(--accent); }
+.stats { color: var(--muted); min-width: 120px; text-align: right; }
+.stage { position: relative; display: grid; place-items: center; overflow: hidden; background:
+  repeating-conic-gradient(#0d0e10 0 25%, #0b0c0e 0 50%) 0 0 / 24px 24px; }
+#canvas { display: block; box-shadow: 0 0 0 1px var(--line); }
+.overlay { position: absolute; left: 14px; bottom: 10px; color: var(--muted); font-size: 11px; }
+.issues { grid-row: 2; grid-column: 2; width: 320px; border-left: 1px solid var(--line); background: var(--panel); overflow: auto; padding: 12px 14px; }
+.issues-title { color: var(--warn); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+.issues ul { margin: 0; padding: 0; list-style: none; }
+.issues li { padding: 8px 0; border-top: 1px solid var(--line); color: var(--text); }
+.issues li code { color: var(--muted); font-family: var(--font-mono); font-size: 11px; display: block; }
+#scrub { flex: 1; accent-color: var(--accent); }
+.time { min-width: 210px; text-align: right; }
+/* Mode test (?test) : seule l'image compte */
+body.test .bar, body.test .transport, body.test .issues, body.test .overlay { display: none; }
+body.test #app { display: block; }
+body.test .stage { background: none; display: block; }
+body.test #canvas { box-shadow: none; }
