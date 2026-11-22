@@ -1,0 +1,18 @@
+{
+  "name": "manipulator-motion-studio",
+  "private": true,
+  "description": "The Manipulator Motion Studio — création d'animations 2D/3D pilotée par IA.",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "schema:export": "uv --directory services/api run python -m manipulator_api.schema.export",
+    "schema:check": "uv --directory services/api run python -m manipulator_api.schema.export --check && pnpm --filter @manipulator/scene-schema check:types",
+    "schema:types": "pnpm --filter @manipulator/scene-schema generate:types",
+    "test:py": "uv --directory services/api run pytest -q",
+    "test:ts": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm schema:check && pnpm test:py && pnpm typecheck && pnpm test:ts"
+  }
+}

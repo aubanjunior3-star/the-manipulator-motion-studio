@@ -1,0 +1,220 @@
+{
+  "msd_version": "0.1.0",
+  "id": "vertical_social",
+  "meta": {
+    "title": "Format vertical 9:16 — accroche réseaux sociaux",
+    "description": "",
+    "generator": "manual"
+  },
+  "settings": {
+    "fps": 60,
+    "width": 1080,
+    "height": 1920,
+    "duration": 3.0,
+    "background": "#0e0f11",
+    "seed": 7
+  },
+  "active_camera": "cam_main",
+  "assets": [
+    {
+      "id": "font_display",
+      "kind": "font",
+      "uri": "builtin:fonts/display-bold.ttf",
+      "license": "OFL-1.1"
+    }
+  ],
+  "materials": [
+    {
+      "id": "m_text",
+      "base_color": "#ffffff",
+      "metalness": 0.0,
+      "roughness": 0.5,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    },
+    {
+      "id": "m_blob",
+      "base_color": "#7b2cbf",
+      "metalness": 0.0,
+      "roughness": 0.3,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cam_main",
+      "type": "camera",
+      "name": "Caméra",
+      "transform": {
+        "position": [
+          0,
+          0,
+          12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "projection": "perspective",
+      "fov": 40.0
+    },
+    {
+      "id": "key",
+      "type": "light",
+      "light": "directional",
+      "transform": {
+        "position": [
+          3,
+          4,
+          6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 2.0
+    },
+    {
+      "id": "amb",
+      "type": "light",
+      "light": "ambient",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 0.3
+    },
+    {
+      "id": "blob",
+      "type": "shape",
+      "shape": {
+        "kind": "ellipse",
+        "radii": [
+          2.5,
+          2.5
+        ]
+      },
+      "material": "m_blob",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "hook",
+      "type": "text",
+      "content": "3 secondes\npour capter\nl'attention",
+      "font": "font_display",
+      "size": 0.9,
+      "line_height": 1.1,
+      "material": "m_text",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "hook_in",
+      "kind": "behavior",
+      "target": "hook",
+      "behavior": "enter",
+      "start": 0.0,
+      "duration": 0.45,
+      "params": {
+        "style": "pop"
+      },
+      "split": "line",
+      "stagger": 0.25
+    },
+    {
+      "id": "blob_pulse",
+      "kind": "behavior",
+      "target": "blob",
+      "behavior": "pulse",
+      "start": 0.0,
+      "duration": 3.0,
+      "params": {
+        "amount": 0.06,
+        "frequency": 2.0
+      }
+    },
+    {
+      "id": "zoom",
+      "kind": "keyframes",
+      "target": "cam_main",
+      "property": "fov",
+      "keyframes": [
+        {
+          "t": 0,
+          "value": 40.0,
+          "ease": "ease_out_strong"
+        },
+        {
+          "t": 3.0,
+          "value": 34.0
+        }
+      ]
+    }
+  ],
+  "markers": []
+}

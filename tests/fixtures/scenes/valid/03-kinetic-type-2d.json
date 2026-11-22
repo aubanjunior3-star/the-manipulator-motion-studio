@@ -1,0 +1,240 @@
+{
+  "msd_version": "0.1.0",
+  "id": "kinetic_type_2d",
+  "meta": {
+    "title": "Typographie cinétique 2D",
+    "description": "",
+    "generator": "manual"
+  },
+  "settings": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "duration": 4.0,
+    "background": "#0e0f11",
+    "seed": 7
+  },
+  "active_camera": "cam_main",
+  "assets": [
+    {
+      "id": "font_display",
+      "kind": "font",
+      "uri": "builtin:fonts/display-bold.ttf",
+      "license": "OFL-1.1"
+    },
+    {
+      "id": "font_ui",
+      "kind": "font",
+      "uri": "builtin:fonts/ui-regular.ttf",
+      "license": "OFL-1.1"
+    }
+  ],
+  "materials": [
+    {
+      "id": "m_ink",
+      "base_color": "#f2f2f0",
+      "metalness": 0.0,
+      "roughness": 0.5,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    },
+    {
+      "id": "m_accent",
+      "base_color": "#ff5a1f",
+      "metalness": 0.0,
+      "roughness": 0.5,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cam_main",
+      "type": "camera",
+      "name": "Caméra",
+      "transform": {
+        "position": [
+          0,
+          0,
+          10
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "projection": "orthographic",
+      "fov": 35.0,
+      "ortho_height": 9.0
+    },
+    {
+      "id": "amb",
+      "type": "light",
+      "light": "ambient",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 1.0
+    },
+    {
+      "id": "bar",
+      "type": "shape",
+      "shape": {
+        "kind": "rect",
+        "size": [
+          7,
+          0.12
+        ],
+        "corner_radius": 0.06
+      },
+      "material": "m_accent",
+      "transform": {
+        "position": [
+          0,
+          -0.9,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "line1",
+      "type": "text",
+      "content": "Décris.",
+      "font": "font_display",
+      "size": 1.4,
+      "material": "m_ink",
+      "transform": {
+        "position": [
+          0,
+          0.6,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "line2",
+      "type": "text",
+      "content": "L'IA anime le reste",
+      "font": "font_ui",
+      "size": 0.5,
+      "material": "m_ink",
+      "transform": {
+        "position": [
+          0,
+          -1.6,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "l1_in",
+      "kind": "behavior",
+      "target": "line1",
+      "behavior": "enter",
+      "start": 0.0,
+      "duration": 0.5,
+      "params": {
+        "style": "drop",
+        "distance": 0.4
+      },
+      "split": "char",
+      "stagger": 0.04
+    },
+    {
+      "id": "bar_in",
+      "kind": "behavior",
+      "target": "bar",
+      "behavior": "enter",
+      "start": 0.4,
+      "duration": 0.6,
+      "params": {
+        "style": "slide_left",
+        "distance": 3.0,
+        "ease": "ease_out_strong"
+      }
+    },
+    {
+      "id": "l2_in",
+      "kind": "behavior",
+      "target": "line2",
+      "behavior": "enter",
+      "start": 0.8,
+      "duration": 0.5,
+      "params": {
+        "style": "fade"
+      },
+      "split": "word",
+      "stagger": 0.12
+    },
+    {
+      "id": "all_out",
+      "kind": "behavior",
+      "target": "line1",
+      "behavior": "exit",
+      "start": 3.3,
+      "duration": 0.5,
+      "params": {
+        "style": "rise"
+      },
+      "split": "char",
+      "stagger": 0.02,
+      "order": "reverse"
+    }
+  ],
+  "markers": []
+}

@@ -1,0 +1,259 @@
+{
+  "msd_version": "0.1.0",
+  "id": "logo_orbit",
+  "meta": {
+    "title": "Logo — orbite caméra autour d'un emblème",
+    "description": "",
+    "generator": "manual"
+  },
+  "settings": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "duration": 6.0,
+    "background": "#0e0f11",
+    "seed": 7
+  },
+  "active_camera": "cam_main",
+  "assets": [],
+  "materials": [
+    {
+      "id": "m_gold",
+      "base_color": "#e8b44a",
+      "metalness": 1.0,
+      "roughness": 0.25,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    },
+    {
+      "id": "m_glow",
+      "base_color": "#101010",
+      "metalness": 0.0,
+      "roughness": 0.5,
+      "emissive": "#5cf2c4",
+      "emissive_intensity": 3.0,
+      "opacity": 1.0
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cam_main",
+      "type": "camera",
+      "name": "Caméra",
+      "transform": {
+        "position": [
+          0,
+          1.5,
+          8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "projection": "perspective",
+      "fov": 35.0
+    },
+    {
+      "id": "key",
+      "type": "light",
+      "light": "spot",
+      "transform": {
+        "position": [
+          3,
+          5,
+          4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 60.0,
+      "cast_shadow": true,
+      "spot_angle": 35.0
+    },
+    {
+      "id": "amb",
+      "type": "light",
+      "light": "ambient",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 0.2
+    },
+    {
+      "id": "emblem",
+      "type": "group",
+      "name": "Emblème",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "ring",
+      "type": "shape",
+      "parent": "emblem",
+      "shape": {
+        "kind": "torus",
+        "radius": 1.4,
+        "tube": 0.12
+      },
+      "material": "m_gold",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "core",
+      "type": "shape",
+      "parent": "emblem",
+      "shape": {
+        "kind": "sphere",
+        "radius": 0.6
+      },
+      "material": "m_glow",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "cam_orbit",
+      "kind": "behavior",
+      "target": "cam_main",
+      "behavior": "orbit",
+      "start": 0.0,
+      "duration": 6.0,
+      "params": {
+        "center": [
+          0,
+          0,
+          0
+        ],
+        "degrees": 120.0,
+        "axis": "y",
+        "ease": "ease_in_out"
+      }
+    },
+    {
+      "id": "cam_aim",
+      "kind": "behavior",
+      "target": "cam_main",
+      "behavior": "look_at",
+      "start": 0.0,
+      "duration": 6.0,
+      "params": {
+        "node": "emblem"
+      }
+    },
+    {
+      "id": "ring_spin",
+      "kind": "behavior",
+      "target": "ring",
+      "behavior": "spin",
+      "start": 0.0,
+      "duration": 6.0,
+      "params": {
+        "axis": "x",
+        "revolutions": 1.0
+      }
+    },
+    {
+      "id": "core_pulse",
+      "kind": "behavior",
+      "target": "core",
+      "behavior": "pulse",
+      "start": 0.0,
+      "duration": 6.0,
+      "params": {
+        "amount": 0.1,
+        "frequency": 1.5
+      }
+    },
+    {
+      "id": "emblem_in",
+      "kind": "behavior",
+      "target": "emblem",
+      "behavior": "enter",
+      "start": 0.0,
+      "duration": 1.0,
+      "params": {
+        "style": "scale_up"
+      }
+    }
+  ],
+  "markers": []
+}

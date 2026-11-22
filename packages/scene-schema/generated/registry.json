@@ -1,0 +1,426 @@
+{
+  "msd_version": "0.1.0",
+  "ease_presets": [
+    "linear",
+    "hold",
+    "ease_in",
+    "ease_out",
+    "ease_in_out",
+    "ease_in_strong",
+    "ease_out_strong",
+    "ease_in_out_strong",
+    "back_in",
+    "back_out"
+  ],
+  "animatable": {
+    "group": {
+      "transform.position": "vec3",
+      "transform.position.x": "scalar",
+      "transform.position.y": "scalar",
+      "transform.position.z": "scalar",
+      "transform.rotation": "vec3",
+      "transform.rotation.x": "scalar",
+      "transform.rotation.y": "scalar",
+      "transform.rotation.z": "scalar",
+      "transform.scale": "vec3",
+      "transform.scale.x": "scalar",
+      "transform.scale.y": "scalar",
+      "transform.scale.z": "scalar",
+      "opacity": "scalar"
+    },
+    "text": {
+      "transform.position": "vec3",
+      "transform.position.x": "scalar",
+      "transform.position.y": "scalar",
+      "transform.position.z": "scalar",
+      "transform.rotation": "vec3",
+      "transform.rotation.x": "scalar",
+      "transform.rotation.y": "scalar",
+      "transform.rotation.z": "scalar",
+      "transform.scale": "vec3",
+      "transform.scale.x": "scalar",
+      "transform.scale.y": "scalar",
+      "transform.scale.z": "scalar",
+      "opacity": "scalar",
+      "size": "scalar",
+      "letter_spacing": "scalar"
+    },
+    "shape": {
+      "transform.position": "vec3",
+      "transform.position.x": "scalar",
+      "transform.position.y": "scalar",
+      "transform.position.z": "scalar",
+      "transform.rotation": "vec3",
+      "transform.rotation.x": "scalar",
+      "transform.rotation.y": "scalar",
+      "transform.rotation.z": "scalar",
+      "transform.scale": "vec3",
+      "transform.scale.x": "scalar",
+      "transform.scale.y": "scalar",
+      "transform.scale.z": "scalar",
+      "opacity": "scalar"
+    },
+    "model": {
+      "transform.position": "vec3",
+      "transform.position.x": "scalar",
+      "transform.position.y": "scalar",
+      "transform.position.z": "scalar",
+      "transform.rotation": "vec3",
+      "transform.rotation.x": "scalar",
+      "transform.rotation.y": "scalar",
+      "transform.rotation.z": "scalar",
+      "transform.scale": "vec3",
+      "transform.scale.x": "scalar",
+      "transform.scale.y": "scalar",
+      "transform.scale.z": "scalar",
+      "opacity": "scalar"
+    },
+    "camera": {
+      "transform.position": "vec3",
+      "transform.position.x": "scalar",
+      "transform.position.y": "scalar",
+      "transform.position.z": "scalar",
+      "transform.rotation": "vec3",
+      "transform.rotation.x": "scalar",
+      "transform.rotation.y": "scalar",
+      "transform.rotation.z": "scalar",
+      "transform.scale": "vec3",
+      "transform.scale.x": "scalar",
+      "transform.scale.y": "scalar",
+      "transform.scale.z": "scalar",
+      "opacity": "scalar",
+      "fov": "scalar",
+      "ortho_height": "scalar"
+    },
+    "light": {
+      "transform.position": "vec3",
+      "transform.position.x": "scalar",
+      "transform.position.y": "scalar",
+      "transform.position.z": "scalar",
+      "transform.rotation": "vec3",
+      "transform.rotation.x": "scalar",
+      "transform.rotation.y": "scalar",
+      "transform.rotation.z": "scalar",
+      "transform.scale": "vec3",
+      "transform.scale.x": "scalar",
+      "transform.scale.y": "scalar",
+      "transform.scale.z": "scalar",
+      "opacity": "scalar",
+      "intensity": "scalar",
+      "color": "color",
+      "spot_angle": "scalar"
+    },
+    "material": {
+      "base_color": "color",
+      "metalness": "scalar",
+      "roughness": "scalar",
+      "emissive": "color",
+      "emissive_intensity": "scalar",
+      "opacity": "scalar"
+    }
+  },
+  "behaviors": {
+    "enter": {
+      "description": "Apparition de l'élément (ou de chaque lettre/mot si split).",
+      "targets": [
+        "group",
+        "text",
+        "shape",
+        "model"
+      ],
+      "params": {
+        "style": {
+          "type": "enum",
+          "values": [
+            "fade",
+            "rise",
+            "drop",
+            "slide_left",
+            "slide_right",
+            "scale_up",
+            "pop"
+          ],
+          "default": "rise"
+        },
+        "distance": {
+          "type": "number",
+          "min": 0.0,
+          "max": 100.0,
+          "default": 0.5
+        },
+        "ease": {
+          "type": "enum",
+          "values": [
+            "linear",
+            "hold",
+            "ease_in",
+            "ease_out",
+            "ease_in_out",
+            "ease_in_strong",
+            "ease_out_strong",
+            "ease_in_out_strong",
+            "back_in",
+            "back_out"
+          ],
+          "default": "ease_out_strong"
+        }
+      }
+    },
+    "exit": {
+      "description": "Disparition de l'élément (ou de chaque lettre/mot si split).",
+      "targets": [
+        "group",
+        "text",
+        "shape",
+        "model"
+      ],
+      "params": {
+        "style": {
+          "type": "enum",
+          "values": [
+            "fade",
+            "rise",
+            "drop",
+            "slide_left",
+            "slide_right",
+            "scale_down"
+          ],
+          "default": "fade"
+        },
+        "distance": {
+          "type": "number",
+          "min": 0.0,
+          "max": 100.0,
+          "default": 0.5
+        },
+        "ease": {
+          "type": "enum",
+          "values": [
+            "linear",
+            "hold",
+            "ease_in",
+            "ease_out",
+            "ease_in_out",
+            "ease_in_strong",
+            "ease_out_strong",
+            "ease_in_out_strong",
+            "back_in",
+            "back_out"
+          ],
+          "default": "ease_in_strong"
+        }
+      }
+    },
+    "spin": {
+      "description": "Rotation continue autour d'un axe local.",
+      "targets": [
+        "group",
+        "text",
+        "shape",
+        "model"
+      ],
+      "params": {
+        "axis": {
+          "type": "enum",
+          "values": [
+            "x",
+            "y",
+            "z"
+          ],
+          "default": "y"
+        },
+        "revolutions": {
+          "type": "number",
+          "min": -100.0,
+          "max": 100.0,
+          "default": 1.0
+        },
+        "ease": {
+          "type": "enum",
+          "values": [
+            "linear",
+            "hold",
+            "ease_in",
+            "ease_out",
+            "ease_in_out",
+            "ease_in_strong",
+            "ease_out_strong",
+            "ease_in_out_strong",
+            "back_in",
+            "back_out"
+          ],
+          "default": "linear"
+        }
+      }
+    },
+    "float": {
+      "description": "Flottement doux (oscillation verticale et légère rotation).",
+      "targets": [
+        "group",
+        "text",
+        "shape",
+        "model"
+      ],
+      "params": {
+        "amplitude": {
+          "type": "number",
+          "min": 0.0,
+          "max": 10.0,
+          "default": 0.1
+        },
+        "frequency": {
+          "type": "number",
+          "min": 0.01,
+          "max": 10.0,
+          "default": 0.5
+        }
+      }
+    },
+    "pulse": {
+      "description": "Pulsation d'échelle périodique.",
+      "targets": [
+        "group",
+        "text",
+        "shape",
+        "model"
+      ],
+      "params": {
+        "amount": {
+          "type": "number",
+          "min": 0.0,
+          "max": 2.0,
+          "default": 0.08
+        },
+        "frequency": {
+          "type": "number",
+          "min": 0.01,
+          "max": 10.0,
+          "default": 1.0
+        }
+      }
+    },
+    "wiggle": {
+      "description": "Bruit procédural (déterministe, seedé) sur la position.",
+      "targets": [
+        "group",
+        "text",
+        "shape",
+        "model",
+        "camera",
+        "light"
+      ],
+      "params": {
+        "amplitude": {
+          "type": "number",
+          "min": 0.0,
+          "max": 10.0,
+          "default": 0.05
+        },
+        "frequency": {
+          "type": "number",
+          "min": 0.01,
+          "max": 30.0,
+          "default": 2.0
+        }
+      }
+    },
+    "orbit": {
+      "description": "Orbite autour d'un point (souvent la caméra autour du sujet).",
+      "targets": [
+        "group",
+        "text",
+        "shape",
+        "model",
+        "camera",
+        "light"
+      ],
+      "params": {
+        "center": {
+          "type": "vec3",
+          "default": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "degrees": {
+          "type": "number",
+          "min": -3600.0,
+          "max": 3600.0,
+          "default": 45.0
+        },
+        "axis": {
+          "type": "enum",
+          "values": [
+            "x",
+            "y",
+            "z"
+          ],
+          "default": "y"
+        },
+        "ease": {
+          "type": "enum",
+          "values": [
+            "linear",
+            "hold",
+            "ease_in",
+            "ease_out",
+            "ease_in_out",
+            "ease_in_strong",
+            "ease_out_strong",
+            "ease_in_out_strong",
+            "back_in",
+            "back_out"
+          ],
+          "default": "ease_in_out"
+        }
+      }
+    },
+    "dolly": {
+      "description": "Déplacement de caméra le long de son axe de visée.",
+      "targets": [
+        "camera"
+      ],
+      "params": {
+        "distance": {
+          "type": "number",
+          "min": -1000.0,
+          "max": 1000.0,
+          "default": 1.0
+        },
+        "ease": {
+          "type": "enum",
+          "values": [
+            "linear",
+            "hold",
+            "ease_in",
+            "ease_out",
+            "ease_in_out",
+            "ease_in_strong",
+            "ease_out_strong",
+            "ease_in_out_strong",
+            "back_in",
+            "back_out"
+          ],
+          "default": "ease_in_out"
+        }
+      }
+    },
+    "look_at": {
+      "description": "Oriente la cible vers un autre nœud pendant toute la durée.",
+      "targets": [
+        "camera",
+        "light",
+        "group",
+        "shape",
+        "model"
+      ],
+      "params": {
+        "node": {
+          "type": "node_ref",
+          "required": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "msd_version": "0.1.0",
+  "id": "empty_scene",
+  "meta": {
+    "title": "Scène vide (cas limite valide)",
+    "description": "",
+    "generator": "manual"
+  },
+  "settings": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "duration": 1.0,
+    "background": "#0e0f11",
+    "seed": 7
+  },
+  "active_camera": null,
+  "assets": [],
+  "materials": [],
+  "nodes": [],
+  "animations": [],
+  "markers": []
+}

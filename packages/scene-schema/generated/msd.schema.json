@@ -1,0 +1,1229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://manipulator.studio/schema/msd/0.1.0.json",
+  "$defs": {
+    "Asset": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "font",
+            "image",
+            "model",
+            "audio"
+          ],
+          "type": "string"
+        },
+        "uri": {
+          "description": "'builtin:' = ressource livrée avec le logiciel ; 'project:' = chemin relatif au dossier assets du projet.",
+          "pattern": "^(builtin|project):[A-Za-z0-9_\\-./]+$",
+          "type": "string"
+        },
+        "license": {
+          "default": "",
+          "description": "Licence ou provenance de l'asset (traçabilité commerciale).",
+          "maxLength": 200,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "uri"
+      ],
+      "title": "Asset",
+      "type": "object"
+    },
+    "Behavior": {
+      "additionalProperties": false,
+      "description": "Mouvement paramétrique de la grammaire de mouvement (voir registre).",
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "kind": {
+          "const": "behavior",
+          "type": "string"
+        },
+        "target": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "behavior": {
+          "maxLength": 64,
+          "minLength": 1,
+          "type": "string"
+        },
+        "start": {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "duration": {
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "params": {
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "number"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              }
+            ]
+          },
+          "type": "object"
+        },
+        "split": {
+          "default": "none",
+          "description": "Texte uniquement : applique le mouvement par lettre, mot ou ligne.",
+          "enum": [
+            "none",
+            "char",
+            "word",
+            "line"
+          ],
+          "type": "string"
+        },
+        "stagger": {
+          "default": 0.0,
+          "description": "Décalage (s) entre éléments quand split != 'none'.",
+          "maximum": 10.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "order": {
+          "default": "forward",
+          "enum": [
+            "forward",
+            "reverse",
+            "center_out",
+            "random"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "target",
+        "behavior",
+        "start",
+        "duration"
+      ],
+      "title": "Behavior",
+      "type": "object"
+    },
+    "BezierEase": {
+      "additionalProperties": false,
+      "description": "Courbe de Bézier cubique façon CSS : P0=(0,0), P3=(1,1).",
+      "properties": {
+        "type": {
+          "const": "bezier",
+          "type": "string"
+        },
+        "x1": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "y1": {
+          "maximum": 3.0,
+          "minimum": -2.0,
+          "type": "number"
+        },
+        "x2": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "y2": {
+          "maximum": 3.0,
+          "minimum": -2.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "x1",
+        "y1",
+        "x2",
+        "y2"
+      ],
+      "title": "BezierEase",
+      "type": "object"
+    },
+    "BoxShape": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "box",
+          "type": "string"
+        },
+        "size": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        },
+        "corner_radius": {
+          "default": 0.0,
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "BoxShape",
+      "type": "object"
+    },
+    "CameraNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "maxLength": 120,
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+              "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifiant d'un nœud 'group', ou null pour la racine."
+        },
+        "transform": {
+          "$ref": "#/$defs/Transform"
+        },
+        "visible": {
+          "default": true,
+          "type": "boolean"
+        },
+        "opacity": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "type": {
+          "const": "camera",
+          "type": "string"
+        },
+        "projection": {
+          "default": "perspective",
+          "enum": [
+            "perspective",
+            "orthographic"
+          ],
+          "type": "string"
+        },
+        "fov": {
+          "default": 35.0,
+          "description": "Champ vertical en degrés (perspective).",
+          "exclusiveMaximum": 179.0,
+          "exclusiveMinimum": 1.0,
+          "type": "number"
+        },
+        "ortho_height": {
+          "default": 10.0,
+          "description": "Hauteur visible (orthographique).",
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "near": {
+          "default": 0.1,
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "far": {
+          "default": 1000.0,
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "title": "CameraNode",
+      "type": "object"
+    },
+    "CylinderShape": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "cylinder",
+          "type": "string"
+        },
+        "radius_top": {
+          "default": 0.5,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "radius_bottom": {
+          "default": 0.5,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "height": {
+          "default": 1.0,
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "CylinderShape",
+      "type": "object"
+    },
+    "EllipseShape": {
+      "additionalProperties": false,
+      "description": "Forme 2D (plate, dans le plan XY local).",
+      "properties": {
+        "kind": {
+          "const": "ellipse",
+          "type": "string"
+        },
+        "radii": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "EllipseShape",
+      "type": "object"
+    },
+    "GroupNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "maxLength": 120,
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+              "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifiant d'un nœud 'group', ou null pour la racine."
+        },
+        "transform": {
+          "$ref": "#/$defs/Transform"
+        },
+        "visible": {
+          "default": true,
+          "type": "boolean"
+        },
+        "opacity": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "type": {
+          "const": "group",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "title": "GroupNode",
+      "type": "object"
+    },
+    "Keyframe": {
+      "additionalProperties": false,
+      "properties": {
+        "t": {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "items": {
+                "type": "number"
+              },
+              "maxItems": 3,
+              "minItems": 3,
+              "type": "array"
+            },
+            {
+              "description": "Couleur sRGB hexadécimale #RRGGBB.",
+              "pattern": "^#[0-9a-fA-F]{6}$",
+              "type": "string"
+            }
+          ]
+        },
+        "ease": {
+          "anyOf": [
+            {
+              "enum": [
+                "linear",
+                "hold",
+                "ease_in",
+                "ease_out",
+                "ease_in_out",
+                "ease_in_strong",
+                "ease_out_strong",
+                "ease_in_out_strong",
+                "back_in",
+                "back_out"
+              ],
+              "type": "string"
+            },
+            {
+              "$ref": "#/$defs/BezierEase"
+            }
+          ],
+          "default": "ease_in_out",
+          "description": "Interpolation du segment qui part de cette clé."
+        }
+      },
+      "required": [
+        "t",
+        "value"
+      ],
+      "title": "Keyframe",
+      "type": "object"
+    },
+    "KeyframeTrack": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "kind": {
+          "const": "keyframes",
+          "type": "string"
+        },
+        "target": {
+          "description": "Nœud ou matériau animé.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "property": {
+          "description": "Chemin de propriété animable, ex. 'transform.position.y' (voir registre).",
+          "maxLength": 64,
+          "minLength": 1,
+          "type": "string"
+        },
+        "keyframes": {
+          "items": {
+            "$ref": "#/$defs/Keyframe"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "target",
+        "property",
+        "keyframes"
+      ],
+      "title": "KeyframeTrack",
+      "type": "object"
+    },
+    "LightNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "maxLength": 120,
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+              "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifiant d'un nœud 'group', ou null pour la racine."
+        },
+        "transform": {
+          "$ref": "#/$defs/Transform"
+        },
+        "visible": {
+          "default": true,
+          "type": "boolean"
+        },
+        "opacity": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "type": {
+          "const": "light",
+          "type": "string"
+        },
+        "light": {
+          "enum": [
+            "ambient",
+            "directional",
+            "point",
+            "spot"
+          ],
+          "type": "string"
+        },
+        "color": {
+          "default": "#ffffff",
+          "description": "Couleur sRGB hexadécimale #RRGGBB.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "intensity": {
+          "default": 1.0,
+          "maximum": 1000.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "cast_shadow": {
+          "default": false,
+          "type": "boolean"
+        },
+        "spot_angle": {
+          "default": 30.0,
+          "description": "Demi-angle du cône (spot), degrés.",
+          "exclusiveMinimum": 0.0,
+          "maximum": 90.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "light"
+      ],
+      "title": "LightNode",
+      "type": "object"
+    },
+    "Marker": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "t": {
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "label": {
+          "default": "",
+          "maxLength": 200,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "t"
+      ],
+      "title": "Marker",
+      "type": "object"
+    },
+    "Material": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "base_color": {
+          "default": "#ffffff",
+          "description": "Couleur sRGB hexadécimale #RRGGBB.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "metalness": {
+          "default": 0.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "roughness": {
+          "default": 0.5,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "emissive": {
+          "default": "#000000",
+          "description": "Couleur sRGB hexadécimale #RRGGBB.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "emissive_intensity": {
+          "default": 0.0,
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "opacity": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "Material",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 200,
+          "minLength": 1,
+          "type": "string"
+        },
+        "description": {
+          "default": "",
+          "maxLength": 2000,
+          "type": "string"
+        },
+        "generator": {
+          "default": "manual",
+          "description": "Origine du document : 'manual', 'ai-director/…', etc.",
+          "maxLength": 100,
+          "type": "string"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "ModelNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "maxLength": 120,
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+              "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifiant d'un nœud 'group', ou null pour la racine."
+        },
+        "transform": {
+          "$ref": "#/$defs/Transform"
+        },
+        "visible": {
+          "default": true,
+          "type": "boolean"
+        },
+        "opacity": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "type": {
+          "const": "model",
+          "type": "string"
+        },
+        "asset": {
+          "description": "Asset de type 'model' (glTF/GLB).",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "asset"
+      ],
+      "title": "ModelNode",
+      "type": "object"
+    },
+    "PlaneShape": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "plane",
+          "type": "string"
+        },
+        "size": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "PlaneShape",
+      "type": "object"
+    },
+    "RectShape": {
+      "additionalProperties": false,
+      "description": "Forme 2D (plate, dans le plan XY local).",
+      "properties": {
+        "kind": {
+          "const": "rect",
+          "type": "string"
+        },
+        "size": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 2,
+          "minItems": 2,
+          "type": "array"
+        },
+        "corner_radius": {
+          "default": 0.0,
+          "minimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "RectShape",
+      "type": "object"
+    },
+    "Settings": {
+      "additionalProperties": false,
+      "properties": {
+        "fps": {
+          "default": 30,
+          "maximum": 120,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "width": {
+          "default": 1920,
+          "maximum": 8192,
+          "minimum": 16,
+          "type": "integer"
+        },
+        "height": {
+          "default": 1080,
+          "maximum": 8192,
+          "minimum": 16,
+          "type": "integer"
+        },
+        "duration": {
+          "description": "Durée en secondes.",
+          "exclusiveMinimum": 0.0,
+          "maximum": 600.0,
+          "type": "number"
+        },
+        "background": {
+          "default": "#0e0f11",
+          "description": "Couleur sRGB hexadécimale #RRGGBB.",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "type": "string"
+        },
+        "seed": {
+          "default": 0,
+          "description": "Graine de tout aléatoire du rendu.",
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "duration"
+      ],
+      "title": "Settings",
+      "type": "object"
+    },
+    "ShapeNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "maxLength": 120,
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+              "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifiant d'un nœud 'group', ou null pour la racine."
+        },
+        "transform": {
+          "$ref": "#/$defs/Transform"
+        },
+        "visible": {
+          "default": true,
+          "type": "boolean"
+        },
+        "opacity": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "type": {
+          "const": "shape",
+          "type": "string"
+        },
+        "shape": {
+          "discriminator": {
+            "mapping": {
+              "box": "#/$defs/BoxShape",
+              "cylinder": "#/$defs/CylinderShape",
+              "ellipse": "#/$defs/EllipseShape",
+              "plane": "#/$defs/PlaneShape",
+              "rect": "#/$defs/RectShape",
+              "sphere": "#/$defs/SphereShape",
+              "torus": "#/$defs/TorusShape"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/BoxShape"
+            },
+            {
+              "$ref": "#/$defs/SphereShape"
+            },
+            {
+              "$ref": "#/$defs/CylinderShape"
+            },
+            {
+              "$ref": "#/$defs/TorusShape"
+            },
+            {
+              "$ref": "#/$defs/PlaneShape"
+            },
+            {
+              "$ref": "#/$defs/RectShape"
+            },
+            {
+              "$ref": "#/$defs/EllipseShape"
+            }
+          ]
+        },
+        "material": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "shape",
+        "material"
+      ],
+      "title": "ShapeNode",
+      "type": "object"
+    },
+    "SphereShape": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "sphere",
+          "type": "string"
+        },
+        "radius": {
+          "default": 0.5,
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "SphereShape",
+      "type": "object"
+    },
+    "TextNode": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "name": {
+          "default": "",
+          "maxLength": 120,
+          "type": "string"
+        },
+        "parent": {
+          "anyOf": [
+            {
+              "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+              "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Identifiant d'un nœud 'group', ou null pour la racine."
+        },
+        "transform": {
+          "$ref": "#/$defs/Transform"
+        },
+        "visible": {
+          "default": true,
+          "type": "boolean"
+        },
+        "opacity": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "type": {
+          "const": "text",
+          "type": "string"
+        },
+        "content": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "type": "string"
+        },
+        "font": {
+          "description": "Asset de type 'font'.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        "size": {
+          "default": 1.0,
+          "exclusiveMinimum": 0.0,
+          "maximum": 100.0,
+          "type": "number"
+        },
+        "extrude": {
+          "default": 0.0,
+          "description": "0 = texte plat (2D).",
+          "maximum": 50.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "bevel": {
+          "default": 0.0,
+          "maximum": 5.0,
+          "minimum": 0.0,
+          "type": "number"
+        },
+        "align": {
+          "default": "center",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "type": "string"
+        },
+        "letter_spacing": {
+          "default": 0.0,
+          "description": "En fraction de la taille.",
+          "maximum": 2.0,
+          "minimum": -0.5,
+          "type": "number"
+        },
+        "line_height": {
+          "default": 1.2,
+          "maximum": 4.0,
+          "minimum": 0.5,
+          "type": "number"
+        },
+        "material": {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "content",
+        "font",
+        "material"
+      ],
+      "title": "TextNode",
+      "type": "object"
+    },
+    "TorusShape": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "torus",
+          "type": "string"
+        },
+        "radius": {
+          "default": 0.5,
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        },
+        "tube": {
+          "default": 0.15,
+          "exclusiveMinimum": 0.0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "TorusShape",
+      "type": "object"
+    },
+    "Transform": {
+      "additionalProperties": false,
+      "properties": {
+        "position": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        },
+        "rotation": {
+          "description": "Degrés, Euler XYZ.",
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        },
+        "scale": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 3,
+          "minItems": 3,
+          "type": "array"
+        }
+      },
+      "title": "Transform",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Document de scène MSD complet.",
+  "properties": {
+    "msd_version": {
+      "const": "0.1.0",
+      "type": "string"
+    },
+    "id": {
+      "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+      "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+      "type": "string"
+    },
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "settings": {
+      "$ref": "#/$defs/Settings"
+    },
+    "active_camera": {
+      "anyOf": [
+        {
+          "description": "Identifiant stable : minuscules, chiffres, '_' ou '-', commence par une lettre.",
+          "pattern": "^[a-z][a-z0-9_\\-]{0,63}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "assets": {
+      "items": {
+        "$ref": "#/$defs/Asset"
+      },
+      "type": "array"
+    },
+    "materials": {
+      "items": {
+        "$ref": "#/$defs/Material"
+      },
+      "type": "array"
+    },
+    "nodes": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "camera": "#/$defs/CameraNode",
+            "group": "#/$defs/GroupNode",
+            "light": "#/$defs/LightNode",
+            "model": "#/$defs/ModelNode",
+            "shape": "#/$defs/ShapeNode",
+            "text": "#/$defs/TextNode"
+          },
+          "propertyName": "type"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/GroupNode"
+          },
+          {
+            "$ref": "#/$defs/TextNode"
+          },
+          {
+            "$ref": "#/$defs/ShapeNode"
+          },
+          {
+            "$ref": "#/$defs/ModelNode"
+          },
+          {
+            "$ref": "#/$defs/CameraNode"
+          },
+          {
+            "$ref": "#/$defs/LightNode"
+          }
+        ]
+      },
+      "type": "array"
+    },
+    "animations": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "behavior": "#/$defs/Behavior",
+            "keyframes": "#/$defs/KeyframeTrack"
+          },
+          "propertyName": "kind"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/KeyframeTrack"
+          },
+          {
+            "$ref": "#/$defs/Behavior"
+          }
+        ]
+      },
+      "type": "array"
+    },
+    "markers": {
+      "items": {
+        "$ref": "#/$defs/Marker"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "msd_version",
+    "id",
+    "meta",
+    "settings"
+  ],
+  "title": "SceneDocument",
+  "type": "object"
+}

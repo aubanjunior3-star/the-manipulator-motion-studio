@@ -1,0 +1,158 @@
+{
+  "s01-unknown-field.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.extra_forbidden"
+    ]
+  },
+  "s02-bad-color.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.string_pattern_mismatch"
+    ]
+  },
+  "s03-wrong-version.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.literal_error"
+    ]
+  },
+  "s04-unknown-node-type.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.union_tag_invalid"
+    ]
+  },
+  "s05-string-instead-of-number.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.int_type"
+    ]
+  },
+  "s06-negative-duration.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.greater_than"
+    ]
+  },
+  "s07-bad-id-format.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.string_pattern_mismatch"
+    ]
+  },
+  "s08-vec2-position.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.too_short"
+    ]
+  },
+  "m01-duplicate-id.json": {
+    "layer": "semantic",
+    "codes": [
+      "id.duplicate"
+    ]
+  },
+  "m02-missing-material.json": {
+    "layer": "semantic",
+    "codes": [
+      "ref.material_missing"
+    ]
+  },
+  "m03-parent-cycle.json": {
+    "layer": "semantic",
+    "codes": [
+      "hierarchy.cycle"
+    ]
+  },
+  "m04-parent-not-group.json": {
+    "layer": "semantic",
+    "codes": [
+      "ref.parent_not_group"
+    ]
+  },
+  "m05-font-wrong-kind.json": {
+    "layer": "semantic",
+    "codes": [
+      "ref.asset_kind"
+    ]
+  },
+  "m06-active-camera-not-camera.json": {
+    "layer": "semantic",
+    "codes": [
+      "camera.active_not_camera"
+    ]
+  },
+  "m07-keyframes-unordered.json": {
+    "layer": "semantic",
+    "codes": [
+      "anim.keyframe_order"
+    ]
+  },
+  "m08-property-unknown.json": {
+    "layer": "semantic",
+    "codes": [
+      "anim.property_unknown"
+    ]
+  },
+  "m09-value-type-mismatch.json": {
+    "layer": "semantic",
+    "codes": [
+      "anim.value_type"
+    ]
+  },
+  "m10-track-conflict.json": {
+    "layer": "semantic",
+    "codes": [
+      "anim.conflict"
+    ]
+  },
+  "m11-behavior-unknown.json": {
+    "layer": "semantic",
+    "codes": [
+      "behavior.unknown"
+    ]
+  },
+  "m12-behavior-param-range.json": {
+    "layer": "semantic",
+    "codes": [
+      "behavior.param_range"
+    ]
+  },
+  "m13-stagger-overflows-duration.json": {
+    "layer": "semantic",
+    "codes": [
+      "anim.out_of_range"
+    ]
+  },
+  "m14-split-on-shape.json": {
+    "layer": "semantic",
+    "codes": [
+      "behavior.split_not_text"
+    ]
+  },
+  "m15-look-at-missing-param.json": {
+    "layer": "semantic",
+    "codes": [
+      "behavior.param_missing"
+    ]
+  },
+  "m16-marker-out-of-range.json": {
+    "layer": "semantic",
+    "codes": [
+      "marker.out_of_range"
+    ]
+  },
+  "m17-near-far.json": {
+    "layer": "semantic",
+    "codes": [
+      "camera.near_far"
+    ]
+  },
+  "m18-behavior-wrong-target.json": {
+    "layer": "semantic",
+    "codes": [
+      "behavior.target_type"
+    ]
+  }
+}

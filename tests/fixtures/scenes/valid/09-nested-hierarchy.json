@@ -1,0 +1,315 @@
+{
+  "msd_version": "0.1.0",
+  "id": "nested_hierarchy",
+  "meta": {
+    "title": "Hiérarchie imbriquée — système solaire",
+    "description": "",
+    "generator": "manual"
+  },
+  "settings": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "duration": 8.0,
+    "background": "#0e0f11",
+    "seed": 7
+  },
+  "active_camera": "cam_main",
+  "assets": [],
+  "materials": [
+    {
+      "id": "m_sun",
+      "base_color": "#000000",
+      "metalness": 0.0,
+      "roughness": 0.5,
+      "emissive": "#ffb703",
+      "emissive_intensity": 4.0,
+      "opacity": 1.0
+    },
+    {
+      "id": "m_planet",
+      "base_color": "#8ecae6",
+      "metalness": 0.0,
+      "roughness": 0.6,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    },
+    {
+      "id": "m_moon",
+      "base_color": "#adb5bd",
+      "metalness": 0.0,
+      "roughness": 0.9,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cam_main",
+      "type": "camera",
+      "name": "Caméra",
+      "transform": {
+        "position": [
+          0,
+          6,
+          12
+        ],
+        "rotation": [
+          -25,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "projection": "perspective",
+      "fov": 35.0
+    },
+    {
+      "id": "sun_light",
+      "type": "light",
+      "light": "point",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 80.0
+    },
+    {
+      "id": "amb",
+      "type": "light",
+      "light": "ambient",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 0.1
+    },
+    {
+      "id": "sun",
+      "type": "shape",
+      "shape": {
+        "kind": "sphere",
+        "radius": 1.0
+      },
+      "material": "m_sun",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "orbit_planet",
+      "type": "group",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "planet_pivot",
+      "type": "group",
+      "parent": "orbit_planet",
+      "transform": {
+        "position": [
+          4,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "planet",
+      "type": "shape",
+      "parent": "planet_pivot",
+      "shape": {
+        "kind": "sphere",
+        "radius": 0.4
+      },
+      "material": "m_planet",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "orbit_moon",
+      "type": "group",
+      "parent": "planet_pivot",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "moon",
+      "type": "shape",
+      "parent": "orbit_moon",
+      "shape": {
+        "kind": "sphere",
+        "radius": 0.12
+      },
+      "material": "m_moon",
+      "transform": {
+        "position": [
+          0.8,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "planet_orbit",
+      "kind": "keyframes",
+      "target": "orbit_planet",
+      "property": "transform.rotation.y",
+      "keyframes": [
+        {
+          "t": 0,
+          "value": 0,
+          "ease": "linear"
+        },
+        {
+          "t": 8,
+          "value": 360
+        }
+      ]
+    },
+    {
+      "id": "moon_orbit",
+      "kind": "keyframes",
+      "target": "orbit_moon",
+      "property": "transform.rotation.y",
+      "keyframes": [
+        {
+          "t": 0,
+          "value": 0,
+          "ease": "linear"
+        },
+        {
+          "t": 8,
+          "value": 1440
+        }
+      ]
+    },
+    {
+      "id": "cam_aim",
+      "kind": "behavior",
+      "target": "cam_main",
+      "behavior": "look_at",
+      "start": 0,
+      "duration": 8,
+      "params": {
+        "node": "sun"
+      }
+    }
+  ],
+  "markers": []
+}

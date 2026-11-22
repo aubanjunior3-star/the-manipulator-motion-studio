@@ -1,0 +1,235 @@
+{
+  "msd_version": "0.1.0",
+  "id": "title_rise_3d",
+  "meta": {
+    "title": "Titre 3D — montée lettre par lettre",
+    "description": "",
+    "generator": "manual"
+  },
+  "settings": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "duration": 5.0,
+    "background": "#0e0f11",
+    "seed": 7
+  },
+  "active_camera": "cam_main",
+  "assets": [
+    {
+      "id": "font_display",
+      "kind": "font",
+      "uri": "builtin:fonts/display-bold.ttf",
+      "license": "OFL-1.1"
+    }
+  ],
+  "materials": [
+    {
+      "id": "m_chrome",
+      "base_color": "#d9dde3",
+      "metalness": 1.0,
+      "roughness": 0.18,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    },
+    {
+      "id": "m_floor",
+      "base_color": "#15171a",
+      "metalness": 0.0,
+      "roughness": 0.9,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cam_main",
+      "type": "camera",
+      "name": "Caméra",
+      "transform": {
+        "position": [
+          0,
+          0.4,
+          9
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "projection": "perspective",
+      "fov": 35.0
+    },
+    {
+      "id": "key",
+      "type": "light",
+      "light": "directional",
+      "transform": {
+        "position": [
+          4,
+          6,
+          5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 2.5,
+      "cast_shadow": true
+    },
+    {
+      "id": "rim",
+      "type": "light",
+      "light": "point",
+      "transform": {
+        "position": [
+          -4,
+          2,
+          -3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffb347",
+      "intensity": 40.0
+    },
+    {
+      "id": "amb",
+      "type": "light",
+      "light": "ambient",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 0.15
+    },
+    {
+      "id": "Title Node",
+      "type": "text",
+      "name": "Titre",
+      "content": "MANIPULATOR",
+      "font": "font_display",
+      "size": 1.1,
+      "extrude": 0.25,
+      "bevel": 0.02,
+      "align": "center",
+      "letter_spacing": 0.04,
+      "material": "m_chrome",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "floor",
+      "type": "shape",
+      "shape": {
+        "kind": "plane",
+        "size": [
+          40,
+          40
+        ]
+      },
+      "material": "m_floor",
+      "transform": {
+        "position": [
+          0,
+          -1,
+          0
+        ],
+        "rotation": [
+          -90,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "title_in",
+      "kind": "behavior",
+      "target": "title",
+      "behavior": "enter",
+      "start": 0.2,
+      "duration": 0.8,
+      "params": {
+        "style": "rise",
+        "distance": 0.6,
+        "ease": "back_out"
+      },
+      "split": "char",
+      "stagger": 0.05,
+      "order": "center_out"
+    },
+    {
+      "id": "cam_push",
+      "kind": "behavior",
+      "target": "cam_main",
+      "behavior": "dolly",
+      "start": 0.0,
+      "duration": 5.0,
+      "params": {
+        "distance": 2.0,
+        "ease": "ease_out"
+      }
+    }
+  ],
+  "markers": []
+}

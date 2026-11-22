@@ -1,0 +1,319 @@
+{
+  "msd_version": "0.1.0",
+  "id": "abstract_float",
+  "meta": {
+    "title": "Abstrait — formes en apesanteur",
+    "description": "",
+    "generator": "manual"
+  },
+  "settings": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "duration": 10.0,
+    "background": "#0e0f11",
+    "seed": 7
+  },
+  "active_camera": "cam_main",
+  "assets": [],
+  "materials": [
+    {
+      "id": "m_a",
+      "base_color": "#ff4d6d",
+      "metalness": 0.0,
+      "roughness": 0.3,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    },
+    {
+      "id": "m_b",
+      "base_color": "#4d9dff",
+      "metalness": 0.6,
+      "roughness": 0.2,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    },
+    {
+      "id": "m_neon",
+      "base_color": "#000000",
+      "metalness": 0.0,
+      "roughness": 0.5,
+      "emissive": "#b6ff3b",
+      "emissive_intensity": 2.0,
+      "opacity": 1.0
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cam_main",
+      "type": "camera",
+      "name": "Caméra",
+      "transform": {
+        "position": [
+          0,
+          0,
+          12
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "projection": "perspective",
+      "fov": 35.0
+    },
+    {
+      "id": "key",
+      "type": "light",
+      "light": "directional",
+      "transform": {
+        "position": [
+          5,
+          5,
+          5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 2.0
+    },
+    {
+      "id": "amb",
+      "type": "light",
+      "light": "ambient",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 0.25
+    },
+    {
+      "id": "s1",
+      "type": "shape",
+      "shape": {
+        "kind": "box",
+        "size": [
+          1.2,
+          1.2,
+          1.2
+        ],
+        "corner_radius": 0.2
+      },
+      "material": "m_a",
+      "transform": {
+        "position": [
+          -3,
+          1,
+          0
+        ],
+        "rotation": [
+          20,
+          30,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "s2",
+      "type": "shape",
+      "shape": {
+        "kind": "sphere",
+        "radius": 0.8
+      },
+      "material": "m_b",
+      "transform": {
+        "position": [
+          2.5,
+          -0.5,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "s3",
+      "type": "shape",
+      "shape": {
+        "kind": "torus",
+        "radius": 0.7,
+        "tube": 0.2
+      },
+      "material": "m_neon",
+      "transform": {
+        "position": [
+          0.5,
+          2,
+          -2
+        ],
+        "rotation": [
+          60,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "s4",
+      "type": "shape",
+      "shape": {
+        "kind": "cylinder",
+        "radius_top": 0.0,
+        "radius_bottom": 0.6,
+        "height": 1.2
+      },
+      "material": "m_a",
+      "transform": {
+        "position": [
+          -1,
+          -2,
+          1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "f1",
+      "kind": "behavior",
+      "target": "s1",
+      "behavior": "float",
+      "start": 0.0,
+      "duration": 10.0,
+      "params": {
+        "amplitude": 0.25,
+        "frequency": 0.3
+      }
+    },
+    {
+      "id": "f2",
+      "kind": "behavior",
+      "target": "s2",
+      "behavior": "float",
+      "start": 0.0,
+      "duration": 10.0,
+      "params": {
+        "amplitude": 0.2,
+        "frequency": 0.4
+      }
+    },
+    {
+      "id": "w3",
+      "kind": "behavior",
+      "target": "s3",
+      "behavior": "wiggle",
+      "start": 0.0,
+      "duration": 10.0,
+      "params": {
+        "amplitude": 0.1,
+        "frequency": 1.0
+      }
+    },
+    {
+      "id": "p4",
+      "kind": "behavior",
+      "target": "s4",
+      "behavior": "pulse",
+      "start": 0.0,
+      "duration": 10.0,
+      "params": {
+        "amount": 0.05,
+        "frequency": 0.5
+      }
+    },
+    {
+      "id": "cam_drift",
+      "kind": "behavior",
+      "target": "cam_main",
+      "behavior": "wiggle",
+      "start": 0.0,
+      "duration": 10.0,
+      "params": {
+        "amplitude": 0.05,
+        "frequency": 0.2
+      }
+    },
+    {
+      "id": "neon_breathe",
+      "kind": "keyframes",
+      "target": "m_neon",
+      "property": "emissive_intensity",
+      "keyframes": [
+        {
+          "t": 0,
+          "value": 0.5,
+          "ease": "ease_in_out"
+        },
+        {
+          "t": 5,
+          "value": 4.0,
+          "ease": "ease_in_out"
+        },
+        {
+          "t": 10,
+          "value": 0.5
+        }
+      ]
+    }
+  ],
+  "markers": []
+}

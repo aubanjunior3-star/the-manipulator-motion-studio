@@ -1,0 +1,216 @@
+{
+  "msd_version": "0.1.0",
+  "id": "product_turntable",
+  "meta": {
+    "title": "Packshot produit — plateau tournant",
+    "description": "",
+    "generator": "manual"
+  },
+  "settings": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "duration": 8.0,
+    "background": "#0e0f11",
+    "seed": 7
+  },
+  "active_camera": "cam_main",
+  "assets": [
+    {
+      "id": "bottle",
+      "kind": "model",
+      "uri": "project:models/bottle.glb",
+      "license": "client"
+    }
+  ],
+  "materials": [
+    {
+      "id": "m_stage",
+      "base_color": "#1b1d21",
+      "metalness": 0.0,
+      "roughness": 0.35,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cam_main",
+      "type": "camera",
+      "name": "Caméra",
+      "transform": {
+        "position": [
+          0,
+          1.2,
+          6
+        ],
+        "rotation": [
+          -8,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "projection": "perspective",
+      "fov": 28.0
+    },
+    {
+      "id": "key",
+      "type": "light",
+      "light": "spot",
+      "transform": {
+        "position": [
+          2,
+          5,
+          3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 80.0,
+      "cast_shadow": true,
+      "spot_angle": 25.0
+    },
+    {
+      "id": "fill",
+      "type": "light",
+      "light": "directional",
+      "transform": {
+        "position": [
+          -5,
+          2,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#9fc5ff",
+      "intensity": 0.6
+    },
+    {
+      "id": "amb",
+      "type": "light",
+      "light": "ambient",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 0.1
+    },
+    {
+      "id": "stage",
+      "type": "shape",
+      "shape": {
+        "kind": "cylinder",
+        "radius_top": 1.6,
+        "radius_bottom": 1.6,
+        "height": 0.2
+      },
+      "material": "m_stage",
+      "transform": {
+        "position": [
+          0,
+          -0.1,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "id": "product",
+      "type": "model",
+      "asset": "bottle",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "turn",
+      "kind": "behavior",
+      "target": "product",
+      "behavior": "spin",
+      "start": 0.0,
+      "duration": 8.0,
+      "params": {
+        "axis": "y",
+        "revolutions": 1.0,
+        "ease": "linear"
+      }
+    },
+    {
+      "id": "stage_turn",
+      "kind": "behavior",
+      "target": "stage",
+      "behavior": "spin",
+      "start": 0.0,
+      "duration": 8.0,
+      "params": {
+        "axis": "y",
+        "revolutions": 1.0,
+        "ease": "linear"
+      }
+    }
+  ],
+  "markers": []
+}

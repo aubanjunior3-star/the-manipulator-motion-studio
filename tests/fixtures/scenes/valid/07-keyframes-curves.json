@@ -1,0 +1,253 @@
+{
+  "msd_version": "0.1.0",
+  "id": "keyframes_curves",
+  "meta": {
+    "title": "Keyframes manuelles — Bézier, hold, couleurs",
+    "description": "",
+    "generator": "manual"
+  },
+  "settings": {
+    "fps": 30,
+    "width": 1920,
+    "height": 1080,
+    "duration": 4.0,
+    "background": "#0e0f11",
+    "seed": 7
+  },
+  "active_camera": "cam_main",
+  "assets": [],
+  "materials": [
+    {
+      "id": "m_cube",
+      "base_color": "#3a86ff",
+      "metalness": 0.0,
+      "roughness": 0.4,
+      "emissive": "#000000",
+      "emissive_intensity": 0.0,
+      "opacity": 1.0
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cam_main",
+      "type": "camera",
+      "name": "Caméra",
+      "transform": {
+        "position": [
+          0,
+          0,
+          8
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "projection": "perspective",
+      "fov": 35.0
+    },
+    {
+      "id": "key",
+      "type": "light",
+      "light": "point",
+      "transform": {
+        "position": [
+          2,
+          3,
+          4
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 30.0
+    },
+    {
+      "id": "amb",
+      "type": "light",
+      "light": "ambient",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "color": "#ffffff",
+      "intensity": 0.2
+    },
+    {
+      "id": "cube",
+      "type": "shape",
+      "shape": {
+        "kind": "box"
+      },
+      "material": "m_cube",
+      "transform": {
+        "position": [
+          -3,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "animations": [
+    {
+      "id": "cube_pos",
+      "kind": "keyframes",
+      "target": "cube",
+      "property": "transform.position",
+      "keyframes": [
+        {
+          "t": 0,
+          "value": [
+            -3,
+            0,
+            0
+          ],
+          "ease": {
+            "type": "bezier",
+            "x1": 0.7,
+            "y1": 0.0,
+            "x2": 0.2,
+            "y2": 1.4
+          }
+        },
+        {
+          "t": 1.5,
+          "value": [
+            3,
+            0,
+            0
+          ],
+          "ease": "hold"
+        },
+        {
+          "t": 2.5,
+          "value": [
+            3,
+            0,
+            0
+          ],
+          "ease": "ease_in_out"
+        },
+        {
+          "t": 4.0,
+          "value": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cube_rot_y",
+      "kind": "keyframes",
+      "target": "cube",
+      "property": "transform.rotation.y",
+      "keyframes": [
+        {
+          "t": 0,
+          "value": 0,
+          "ease": "linear"
+        },
+        {
+          "t": 4.0,
+          "value": 360
+        }
+      ]
+    },
+    {
+      "id": "cube_color",
+      "kind": "keyframes",
+      "target": "m_cube",
+      "property": "base_color",
+      "keyframes": [
+        {
+          "t": 0,
+          "value": "#3a86ff",
+          "ease": "ease_in_out"
+        },
+        {
+          "t": 2.0,
+          "value": "#ff006e",
+          "ease": "ease_in_out"
+        },
+        {
+          "t": 4.0,
+          "value": "#3a86ff"
+        }
+      ]
+    },
+    {
+      "id": "key_int",
+      "kind": "keyframes",
+      "target": "key",
+      "property": "intensity",
+      "keyframes": [
+        {
+          "t": 0,
+          "value": 0,
+          "ease": "ease_out"
+        },
+        {
+          "t": 0.8,
+          "value": 30.0
+        }
+      ]
+    },
+    {
+      "id": "key_col",
+      "kind": "keyframes",
+      "target": "key",
+      "property": "color",
+      "keyframes": [
+        {
+          "t": 0,
+          "value": "#ffffff"
+        },
+        {
+          "t": 3.0,
+          "value": "#ffd6a5"
+        }
+      ]
+    }
+  ],
+  "markers": []
+}
