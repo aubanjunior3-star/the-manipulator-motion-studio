@@ -27,7 +27,7 @@ from .models import (
     ShapeNode,
     TextNode,
 )
-from .registry import ANIMATABLE, BEHAVIORS, properties_overlap
+from .registry import ANIMATABLE, BEHAVIORS, BUILTIN_ASSETS, properties_overlap
 
 Severity = Literal["error", "warning"]
 
@@ -157,6 +157,25 @@ def _check_semantics(doc: SceneDocument, out: list[Issue]) -> None:
     assets = {a.id: a for a in doc.assets}
     materials = {m.id: m for m in doc.materials}
     nodes = {n.id: n for n in doc.nodes}
+
+    # --- ressources intégrées : doivent exister dans le catalogue, avec le bon type ---
+    for i, asset in enumerate(doc.assets):
+        if asset.uri.startswith("builtin:"):
+            entry = BUILTIN_ASSETS.get(asset.uri.removeprefix("builtin:"))
+            path = _pointer("assets", i, "uri")
+            if entry is None:
+                out.append(
+                    Issue(
+                        "ref.builtin_unknown",
+                        path,
+                        f"Ressource intégrée '{asset.uri}' inconnue. Disponibles : "
+                        + ", ".join(f"builtin:{k}" for k in sorted(BUILTIN_ASSETS)),
+                    )
+                )
+            elif entry["kind"] != asset.kind:
+                out.append(
+                    Issue("ref.builtin_kind", path, f"'{asset.uri}' est de type '{entry['kind']}', pas '{asset.kind}'.")
+                )
 
     # --- nœuds : références ---
     for i, node in enumerate(doc.nodes):

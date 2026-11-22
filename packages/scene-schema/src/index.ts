@@ -41,6 +41,16 @@ export interface MsdRegistry {
   ease_presets: string[];
   animatable: Record<string, Record<string, ValueType>>;
   behaviors: Record<string, BehaviorSpec>;
+  builtin_assets: Record<string, BuiltinAsset>;
+}
+
+/** Ressource livrée avec le logiciel : URI `builtin:<clé>`, fichier dans assets/builtin/. */
+export interface BuiltinAsset {
+  kind: "font" | "image" | "model" | "audio";
+  file: string;
+  family?: string;
+  license: string;
+  license_file: string;
 }
 
 export interface StructureIssue {

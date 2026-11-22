@@ -51,3 +51,13 @@ def test_behavior_targets_are_real_node_types():
 
 def test_document_model_title():
     assert SceneDocument.model_json_schema()["title"] == "SceneDocument"
+
+
+def test_builtin_assets_exist_with_license():
+    from manipulator_api.schema.registry import BUILTIN_ASSETS
+
+    root = OUT_DIR.parents[2] / "assets" / "builtin"
+    for key, entry in BUILTIN_ASSETS.items():
+        assert (root / entry["file"]).is_file(), key
+        assert (root / entry["license_file"]).is_file(), key
+        assert entry["license"] == "OFL-1.1" or entry["license"], key

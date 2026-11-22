@@ -154,9 +154,35 @@ BEHAVIORS: dict[str, dict[str, Any]] = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Ressources livrées avec le logiciel (URI "builtin:<clé>")
+# ---------------------------------------------------------------------------
+# Fichiers dans assets/builtin/. Licence obligatoire et compatible usage commercial.
+# Les polices sont des sous-ensembles « latin » (latin de base + latin-1 : français,
+# espagnol, allemand…).
+
+BUILTIN_ASSETS: dict[str, dict[str, str]] = {
+    "fonts/display-bold": {
+        "kind": "font",
+        "file": "fonts/SpaceGrotesk-Bold.woff",
+        "family": "Space Grotesk Bold",
+        "license": "OFL-1.1",
+        "license_file": "fonts/OFL-SpaceGrotesk.txt",
+    },
+    "fonts/ui-regular": {
+        "kind": "font",
+        "file": "fonts/Inter-Regular.woff",
+        "family": "Inter Regular",
+        "license": "OFL-1.1",
+        "license_file": "fonts/OFL-Inter.txt",
+    },
+}
+
+
 def registry_as_json() -> dict[str, Any]:
     return {
         "ease_presets": EASE_PRESETS,
         "animatable": ANIMATABLE,
         "behaviors": BEHAVIORS,
+        "builtin_assets": BUILTIN_ASSETS,
     }

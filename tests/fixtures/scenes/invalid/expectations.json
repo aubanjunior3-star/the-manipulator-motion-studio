@@ -1,52 +1,4 @@
 {
-  "s01-unknown-field.json": {
-    "layer": "schema",
-    "codes": [
-      "schema.extra_forbidden"
-    ]
-  },
-  "s02-bad-color.json": {
-    "layer": "schema",
-    "codes": [
-      "schema.string_pattern_mismatch"
-    ]
-  },
-  "s03-wrong-version.json": {
-    "layer": "schema",
-    "codes": [
-      "schema.literal_error"
-    ]
-  },
-  "s04-unknown-node-type.json": {
-    "layer": "schema",
-    "codes": [
-      "schema.union_tag_invalid"
-    ]
-  },
-  "s05-string-instead-of-number.json": {
-    "layer": "schema",
-    "codes": [
-      "schema.int_type"
-    ]
-  },
-  "s06-negative-duration.json": {
-    "layer": "schema",
-    "codes": [
-      "schema.greater_than"
-    ]
-  },
-  "s07-bad-id-format.json": {
-    "layer": "schema",
-    "codes": [
-      "schema.string_pattern_mismatch"
-    ]
-  },
-  "s08-vec2-position.json": {
-    "layer": "schema",
-    "codes": [
-      "schema.too_short"
-    ]
-  },
   "m01-duplicate-id.json": {
     "layer": "semantic",
     "codes": [
@@ -74,7 +26,8 @@
   "m05-font-wrong-kind.json": {
     "layer": "semantic",
     "codes": [
-      "ref.asset_kind"
+      "ref.asset_kind",
+      "ref.builtin_kind"
     ]
   },
   "m06-active-camera-not-camera.json": {
@@ -153,6 +106,60 @@
     "layer": "semantic",
     "codes": [
       "behavior.target_type"
+    ]
+  },
+  "m19-builtin-unknown.json": {
+    "layer": "semantic",
+    "codes": [
+      "ref.builtin_unknown"
+    ]
+  },
+  "s01-unknown-field.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.extra_forbidden"
+    ]
+  },
+  "s02-bad-color.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.string_pattern_mismatch"
+    ]
+  },
+  "s03-wrong-version.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.literal_error"
+    ]
+  },
+  "s04-unknown-node-type.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.union_tag_invalid"
+    ]
+  },
+  "s05-string-instead-of-number.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.int_type"
+    ]
+  },
+  "s06-negative-duration.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.greater_than"
+    ]
+  },
+  "s07-bad-id-format.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.string_pattern_mismatch"
+    ]
+  },
+  "s08-vec2-position.json": {
+    "layer": "schema",
+    "codes": [
+      "schema.too_short"
     ]
   }
 }

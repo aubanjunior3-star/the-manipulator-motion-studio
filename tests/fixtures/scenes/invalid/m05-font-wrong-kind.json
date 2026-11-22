@@ -19,7 +19,7 @@
     {
       "id": "font_display",
       "kind": "image",
-      "uri": "builtin:fonts/display-bold.ttf",
+      "uri": "builtin:fonts/display-bold",
       "license": "OFL-1.1"
     }
   ],
